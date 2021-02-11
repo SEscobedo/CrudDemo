@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Data;
+using Newtonsoft.Json;
+using CrudWPF.Shared;
+using System.ComponentModel;
 
 namespace CrudWPF
 {
@@ -17,23 +21,18 @@ namespace CrudWPF
 			Refresh();
 		}
 
-		private void Refresh()
+		private async void Refresh()
 		{
-			List<EmployeeViewModel> lst = new List<EmployeeViewModel>();
-			using (Model.EmployeeDbEntities db = new Model.EmployeeDbEntities())
-			{
-				lst = (from d in db.Employees
-					   select new EmployeeViewModel
-					   {
-						   Nome = d.Nome,
-						   Sobrenome = d.Sobrenome,
-						   Telefone = d.Telefone,
-						   Id = d.Id
-					   }).ToList();
+		
+			string jsonString = await RestHelper.GetALL();
+		
+			DataTable dt = JsonConvert.DeserializeObject<DataTable>(jsonString);
+			DG.ItemsSource = dt.DefaultView;
 
-			}
-			DG.ItemsSource = lst;
 		}
+
+
+		
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
@@ -41,16 +40,11 @@ namespace CrudWPF
 			MainWindow.StaticMainFrame.Content = new Formulario(Guid.Empty);
 		}
 
-		private void Button_Click_1(object sender, RoutedEventArgs e)
+		private async void Button_Click_1(object sender, RoutedEventArgs e)
 		{
-			Guid id = (Guid)((Button)sender).CommandParameter;
-
-			using (Model.EmployeeDbEntities db = new Model.EmployeeDbEntities())
-			{
-				var oEmployee = db.Employees.Find(id);
-				db.Employees.Remove(oEmployee);
-				db.SaveChanges();
-			}
+			string id = ((Button)sender).CommandParameter.ToString();
+				
+			await RestHelper.Delete(id);
 
 			Refresh();
 		}
@@ -64,7 +58,9 @@ namespace CrudWPF
 			MainWindow.StaticMainFrame.Content = pFormulario;
 
 		}
+
 	}
+
 
 	public class EmployeeViewModel
 	{

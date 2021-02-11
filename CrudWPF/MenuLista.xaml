@@ -16,23 +16,34 @@
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Grid.Column="0" Grid.Row="0" Width="100" HorizontalAlignment="Right" Click="Button_Click">Novo</Button>
-        <DataGrid Name="DG" AutoGenerateColumns="False" IsReadOnly="true" Grid.Column="0" Grid.Row="1">
+        <Button Grid.Column="0" Grid.Row="0" Width="100" HorizontalAlignment="Right" Click="Button_Click" Height="30" VerticalAlignment="Bottom">Novo</Button>
+        
+        <DataGrid Name="DG" AutoGenerateColumns="False" IsReadOnly="true" Grid.Column="0" Grid.Row="1" 
+                  AlternatingRowBackground="LightSteelBlue" CanUserAddRows="False" ItemsSource="{Binding}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nome" Binding="{Binding Nome}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Sobrenome" Binding="{Binding Sobrenome}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Telefone" Binding="{Binding Telefone}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nome" Binding="{Binding Path=nome}"/>
+                <DataGridTextColumn Header="Sobreome" Binding="{Binding Path=sobrenome}"/>
+                <DataGridTextColumn Header="Telefone" Binding="{Binding Path=telefone}"/>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel>
-                                <Button CommandParameter="{Binding Id}" Click="Button_Click_1">Apagar</Button>
-                                <Button CommandParameter="{Binding Id}" Click="Button_Edit">Editar</Button>
-                            </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                                <Button CommandParameter="{Binding Path=id}" Click="Button_Click_1" Width="50" Height="30" 
+                                        HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    Apagar
+                                </Button>
+                                <Button CommandParameter="{Binding Path=id}" Click="Button_Edit" Width="50" Height="30"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    Editar
+                                </Button>
+                        </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+
             </DataGrid.Columns>
         </DataGrid>
+        
+        
     </Grid>
 </Page>
