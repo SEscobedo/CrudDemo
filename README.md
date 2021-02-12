@@ -1,4 +1,5 @@
 # CRUD demo para IdealSoft
+![CI](https://github.com/SEscobedo/CrudDemo/workflows/CI/badge.svg)
 
 Aplicativo desktop criado com WPF para acesso a uma crud API com banco de dados contendo cadastros de pessoas, com nome, sobrenome e telefone.
 
