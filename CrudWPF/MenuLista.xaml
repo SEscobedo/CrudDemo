@@ -16,6 +16,7 @@
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+        <Label Name="LBL" HorizontalAlignment="Left" Foreground="OrangeRed" FontWeight="Bold"></Label>
         <Button Grid.Column="0" Grid.Row="0" Width="100" HorizontalAlignment="Right" Click="Button_Click" Height="30" VerticalAlignment="Top">Novo</Button>
         
         <DataGrid Name="DG" AutoGenerateColumns="False" IsReadOnly="true" Grid.Column="0" Grid.Row="1" 

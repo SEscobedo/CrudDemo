@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using CrudWPF.Shared;
+using Newtonsoft.Json;
+using System;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
-using System.Data;
-using Newtonsoft.Json;
-using CrudWPF.Shared;
-using System.ComponentModel;
 
 namespace CrudWPF
 {
@@ -23,12 +20,14 @@ namespace CrudWPF
 
 		private async void Refresh()
 		{
-		
+			LBL.Content = "Carregando dados...";
+
 			string jsonString = await RestHelper.GetALL();
 		
 			DataTable dt = JsonConvert.DeserializeObject<DataTable>(jsonString);
 			DG.ItemsSource = dt.DefaultView;
 
+			LBL.Content = "";
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e)

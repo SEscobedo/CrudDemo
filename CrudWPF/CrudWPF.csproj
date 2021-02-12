@@ -142,7 +142,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\database-icon.ico" />
     <None Include="Resources\editIcon.png" />
     <None Include="Resources\deleteIcon.png" />
   </ItemGroup>
@@ -160,9 +159,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\remote-data.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\cruddemo.ico" />
