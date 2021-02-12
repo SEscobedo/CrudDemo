@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CrudWPF.Shared;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using CrudWPF.Shared;
-using Newtonsoft.Json.Linq;
 
 namespace CrudWPF
 {
