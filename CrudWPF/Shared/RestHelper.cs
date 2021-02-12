@@ -88,20 +88,15 @@ namespace CrudWPF.Shared
 		//Editar
 		public static async Task<string> Put(Guid id,string nome, string sobrenome, string telefone)
 		{
-			var inputData = new Dictionary<string, string>
-			{
-				{"Id", id.ToString()},
-				{"nome", nome},
-				{"sobrenome", sobrenome},
-				{"telefone", telefone},
-			};
-			var input = new FormUrlEncodedContent(inputData);
+			var jsonString = $"{{\"nome\":\"{nome}\",\"sobrenome\":\"{sobrenome}\",\"telefone\":\"{telefone}\"}}";
+			var jsonObject = JObject.Parse(jsonString);
+
+			var input = new StringContent(jsonObject.ToString(), Encoding.UTF8, "application/json");
 
 			using (HttpClient client = new HttpClient())
-			{
+			{	
 				using (HttpResponseMessage res = await client.PutAsync(apiURL + "employees/" + id.ToString(), input))
 				{
-
 					using (HttpContent content = res.Content)
 					{
 						string data = await content.ReadAsStringAsync();

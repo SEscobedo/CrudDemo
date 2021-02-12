@@ -38,6 +38,7 @@ namespace CrudWPF
 		{
 			
 			MainWindow.StaticMainFrame.Content = new Formulario(Guid.Empty);
+			
 		}
 
 		private async void Button_Click_1(object sender, RoutedEventArgs e)
@@ -51,9 +52,10 @@ namespace CrudWPF
 
 		private void Button_Edit(object sender, RoutedEventArgs e)
 		{
-			Guid id = (Guid)((Button)sender).CommandParameter;
+			Guid id = new Guid(((Button)sender).CommandParameter.ToString());
 
 			Formulario pFormulario = new Formulario(id);
+			
 
 			MainWindow.StaticMainFrame.Content = pFormulario;
 

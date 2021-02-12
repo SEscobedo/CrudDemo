@@ -14,9 +14,25 @@ namespace CrudWPF
 	{
 		public Guid Id { get; set; }
 	
-		public Formulario( Guid Id )
+		public Formulario(Guid Id)
 		{
 			InitializeComponent();
+			this.Id = Id;
+
+			if(this.Id != Guid.Empty)
+			{
+				FillData(this.Id);
+			}
+		}
+
+		private async void FillData(Guid Id)
+		{
+			string jsonString = await RestHelper.Get(Id);
+			var jsonObject = JObject.Parse(jsonString);
+
+			txtNome.Text = jsonObject["nome"].ToString();
+			txtSobrenome.Text = jsonObject["sobrenome"].ToString();
+			txtTelefone.Text = jsonObject["telefone"].ToString();
 		}
 
 		public async void Button_Click(object sender, RoutedEventArgs e)
@@ -31,7 +47,7 @@ namespace CrudWPF
 				}
 				else
 				{
-					MessageBox.Show("O Nome é requerido. O registro não sera salvo");
+					MessageBox.Show("O nome é requerido. O registro não será salvo");
 				}
 				
 
@@ -41,20 +57,19 @@ namespace CrudWPF
 			else
 			{
 				//Editando o registro existente
+				var Nome = txtNome.Text;
 
-
-				using (Model.EmployeeDbEntities db = new Model.EmployeeDbEntities())
+				if (Nome != "")
 				{
-					var oEmployee = db.Employees.Find(Id);
-					oEmployee.Nome = txtNome.Text;
-					oEmployee.Sobrenome = txtSobrenome.Text;
-					oEmployee.Telefone = txtTelefone.Text;
-
-					db.Entry(oEmployee).State = System.Data.Entity.EntityState.Modified;
-					db.SaveChanges();
-
-					MainWindow.StaticMainFrame.Content = new MenuLista();
+					var response = await RestHelper.Put(Id, Nome, txtSobrenome.Text, txtTelefone.Text);
 				}
+				else
+				{
+					MessageBox.Show("O nome é requerido. O registro não será modificado");
+				}
+
+
+				MainWindow.StaticMainFrame.Content = new MenuLista();
 			}
 		}
 	}
