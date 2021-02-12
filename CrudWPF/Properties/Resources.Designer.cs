@@ -63,9 +63,9 @@ namespace CrudWPF.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Icon semelhante a (Ícone).
         /// </summary>
-        internal static System.Drawing.Icon database_icon {
+        internal static System.Drawing.Icon cruddemo {
             get {
-                object obj = ResourceManager.GetObject("database_icon", resourceCulture);
+                object obj = ResourceManager.GetObject("cruddemo", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
